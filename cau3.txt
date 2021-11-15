@@ -1,0 +1,48 @@
+Tìm hiểu phương pháp điền vào dữ liệu thiếu: mean, median, mode.   --Triết
+
+
+Tìm hiểu về phương pháp chuẩn hoá min-max Z-score. --Đông
+
+
+Tham số câu 1: file csv -- Triết
+
+Câu 2: File csv --Đông
+
+Câu 3: 
+- mode=mean,median,mode --Triết
+- input csv
+- output csv
+- columns
+
+Câu 4: --Đông --Triết
+- input csv
+- rate = ?
+- output csv
+- mode = colume, row
+
+//Câu 5: 
+//- input csv
+//- rate = ?
+//- output csv
+
+Câu 6: --Triết
+- input csv
+- output csv
+
+Câu 7: --Đông
+- input csv
+- output csv
+- mode = min-max hay Z-score
+- colume
+
+Câu 8: --Đông tìm hiểu. Đông, Triết code.
+- input csv
+- output csv
+- biểu thức
+
+
+https://viettuts.vn/python/tham-so-dong-lenh-trong-python#goto-h3-1
+https://www.geeksforgeeks.org/getopt-module-in-python/
+
+
+
