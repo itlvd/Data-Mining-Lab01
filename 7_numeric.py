@@ -56,7 +56,7 @@ def main():
     df = pd.read_csv(src)
 
     if columns == 'all':
-        columns = [df.columns]
+        columns = df.columns
     else:
         columns = columns.split(',')
         if any(x not in df.columns for x in columns):
@@ -65,16 +65,16 @@ def main():
 
     for col in columns:
         #Check columns is a numberic
-        if(df.iloc[:,col].dtype in ['O','S','U','V']):
+        if(df[col].dtype in ['O','S','U','V']) or col == 'Id':
             continue
 
         #Convert type to float.
-        df.iloc[:,col] = df.iloc[:,col].astype(float)
+        df[col] = df[col].astype(float)
         if(mode == 'min-max'):
-            df.iloc[:,col] = min_max(df.iloc[:,col])
+            df[col] = min_max(df[col])
         else:
-            df.iloc[:,col] = z_score(df.iloc[:,col])
+            df[col] = z_score(df[col])
     
-    df.to_csv(des,sep=',')
+    df.to_csv(des,sep=',',index=False)
 
 main()
