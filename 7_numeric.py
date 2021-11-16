@@ -31,7 +31,7 @@ def main():
         -s, --source: Yours file csv to normalization.
         -d, --destination: Output the result.
         -m, --mode: This file have 2 options (min-max, z-score). Input the name of normaliztion that you choose.
-        -c, --columns: Yours input. Seperate by comma.
+        -c, --columns: Yours columns. Seperate by comma.
         -h, --help: If you have any problem. You can find a solution here.
         ''')
         return
