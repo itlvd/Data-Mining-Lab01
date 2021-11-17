@@ -22,11 +22,14 @@ def min_max(l_col):
 
 def z_score(l_col):
     #Convert NaN to zero
+    tmp = copy.deepcopy(l_col)
     for i in range(len(l_col)):
         l_col[i] = 0 if (isNan(l_col[i])) else l_col[i]
 
     mean = sum(l_col) / len(l_col)
     std_devition = math.sqrt(sum([(abs(x-mean)**2) for x in l_col])/len(l_col))
+    if(std_devition == 0):
+        return tmp
     return [((x - mean)/std_devition) for x in l_col]
 
 def main():
@@ -34,8 +37,6 @@ def main():
     des = 'output.csv'
     mode = 'min-max'
     columns = 'all'
-    merge_col = []
-    head = None
 
     argv = sys.argv[1:]
 
@@ -67,7 +68,6 @@ def main():
             
 
     df = pd.read_csv(src)
-    head = df.columns
 
     if columns == 'all':
         columns = df.columns
@@ -84,18 +84,16 @@ def main():
         
         #Check columns is a numberic
         if (dtype(l_col) is str) or col == 'Id':
-            merge_col.append(l_col)
             continue
 
         if(mode == 'min-max'):
             l_col = min_max(l_col)
         else:
             l_col = z_score(l_col)
-        
-        merge_col.append(l_col)
 
-    df =pd.DataFrame(merge_col).T
-    df.columns = head
+        df[col] = l_col
+
+
     df.to_csv(des,sep=',',index=False)
 
 main()
