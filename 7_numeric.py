@@ -2,9 +2,17 @@ import pandas as pd
 import sys
 import getopt
 import math
+import copy
 
 def isNan(num):
     return num!= num
+
+def dtype(l):
+    for i in l:
+        if(isNan(i)):
+            continue
+        else:
+            return type(i)
 
 def min_max(l_col):
     #Convert NaN to zero
@@ -26,6 +34,8 @@ def main():
     des = 'output.csv'
     mode = 'min-max'
     columns = 'all'
+    merge_col = []
+    head = None
 
     argv = sys.argv[1:]
 
@@ -57,6 +67,7 @@ def main():
             
 
     df = pd.read_csv(src)
+    head = df.columns
 
     if columns == 'all':
         columns = df.columns
@@ -66,18 +77,25 @@ def main():
             print('Columns is not exist. Please check again!')
             return
 
+    
     for col in columns:
+        #Convert columns dataframe to list
+        l_col = df[col].values.tolist()
+        
         #Check columns is a numberic
-        if(df[col].dtype in ['O','S','U','V']) or col == 'Id':
+        if (dtype(l_col) is str) or col == 'Id':
+            merge_col.append(l_col)
             continue
 
-        #Convert type to float.
-        df[col] = df[col].astype(float)
         if(mode == 'min-max'):
-            df[col] = min_max(df[col])
+            l_col = min_max(l_col)
         else:
-            df[col] = z_score(df[col])
-    
+            l_col = z_score(l_col)
+        
+        merge_col.append(l_col)
+
+    df =pd.DataFrame(merge_col).T
+    df.columns = head
     df.to_csv(des,sep=',',index=False)
 
 main()
