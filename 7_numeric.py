@@ -1,22 +1,25 @@
 import pandas as pd
 import sys
 import getopt
+import math
 
-def min_max(series_col_df):
+def isNan(num):
+    return num!= num
+
+def min_max(l_col):
     #Convert NaN to zero
-    for i in range(len(series_col_df)):
-        series_col_df[i] = 0 if (pd.isnull(series_col_df[i])) else series_col_df[i]
+    for i in range(len(l_col)):
+        l_col[i] = 0 if (isNan(l_col[i])) else l_col[i]
+    return [((x - min(l_col)) / ((max(l_col) - min(l_col)) if (max(l_col) - min(l_col)) > 0 else len(l_col))) for x in l_col]
 
-    return (series_col_df - min(series_col_df)) / ((max(series_col_df) - min(series_col_df)) if (max(series_col_df) - min(series_col_df)) > 0 else len(series_col_df))
-
-def z_score(series_col_df):
+def z_score(l_col):
     #Convert NaN to zero
-    for i in range(len(series_col_df)):
-        series_col_df[i] = 0 if (pd.isnull(series_col_df[i])) else series_col_df[i]
+    for i in range(len(l_col)):
+        l_col[i] = 0 if (isNan(l_col[i])) else l_col[i]
 
-    mean = sum(series_col_df) / len(series_col_df)
-    std_devition = (sum(abs(series_col_df-mean)**2)/len(series_col_df))**(1/2)
-    return (series_col_df - mean)/std_devition
+    mean = sum(l_col) / len(l_col)
+    std_devition = math.sqrt(sum([(abs(x-mean)**2) for x in l_col])/len(l_col))
+    return [((x - mean)/std_devition) for x in l_col]
 
 def main():
     src = None
