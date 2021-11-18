@@ -1,4 +1,7 @@
 import pandas as pd
+import sys
+import getopt
+
 
 def isNan(num):
     return num!= num
@@ -31,6 +34,26 @@ def delete_row_missing_value_rate(df,rate):
     df = pd.DataFrame(l_df, columns=head)
     return df
 
-df = pd.read_csv('house-prices.csv')
-d_d = delete_row_missing_value_rate(df,5)
-print(d_d.shape)
+def main():
+    src = None
+    des = None
+    rate = None
+    argv = sys.argv[1:]
+    try:
+        opts, args = getopt.getopt(argv, "s:d:r:", ["source=","destination=","rate="])
+    except:
+        print("Error! Please try: --source, --destination, --rate")
+
+    for opt, arg in opts:
+        if opt in ['-s', '--source']:
+            src = arg
+        elif opt in ['-d', '--destination']:
+            des = arg
+        elif opt in ['-r','--rate']:
+            rate = arg
+
+    df = pd.read_csv(src)
+    df = delete_row_missing_value_rate(df,rate)
+    df.to_csv(des,sep=',',index=False)
+
+main()
