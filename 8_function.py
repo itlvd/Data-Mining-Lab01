@@ -25,10 +25,10 @@ def main():
 
     df = pd.read_csv(src)
 
-    #try:
-    df = cal(df,expression)
-    #except:
-    #    print("Value of your columns is not numberic Please check again")
+    try:
+        df = cal(df,expression)
+    except:
+        print("Value of your columns is not numberic Please check again")
 
     df.to_csv(des,sep=',',index=False)
 
