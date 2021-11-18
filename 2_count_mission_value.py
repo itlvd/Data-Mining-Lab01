@@ -1,11 +1,14 @@
 import pandas as pd
 import sys
 
+def isNan(num):
+    return num!= num
+
 def count_row_miss_value(df):
     count = 0
     for row in range(df.shape[0]):
         for col in range(df.shape[1]):
-            if pd.isnull(df.iat[row,col]):
+            if isNan(df.iat[row,col]):
                 count +=1
                 break
     return count
