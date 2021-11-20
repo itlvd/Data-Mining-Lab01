@@ -13,11 +13,16 @@ def dtype(l):
             continue
         else:
             return type(i)
+    return None
 
 def min_max(l_col):
     #Convert NaN to zero
+    tmp = copy.deepcopy(l_col)
     for i in range(len(l_col)):
         l_col[i] = 0 if (isNan(l_col[i])) else l_col[i]
+    
+    if max(l_col) == min(l_col):
+        return tmp
     return [((x - min(l_col)) / ((max(l_col) - min(l_col)) if (max(l_col) - min(l_col)) > 0 else len(l_col))) for x in l_col]
 
 def z_score(l_col):

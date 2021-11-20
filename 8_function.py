@@ -10,7 +10,7 @@ def cal(df,expression):
             s = df[j].values.tolist()
             dictx[j]=s[i]
         ret.append(eval(expression,dictx))
-    df['result'] = ret
+    df[expression] = ret
     return df
 
 def main():
@@ -28,7 +28,7 @@ def main():
     try:
         df = cal(df,expression)
     except:
-        print("Value of your columns is not numberic Please check again")
+        print("Something went wrong. Please notify me :)")
 
     df.to_csv(des,sep=',',index=False)
 
