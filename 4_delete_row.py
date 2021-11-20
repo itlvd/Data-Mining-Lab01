@@ -50,7 +50,7 @@ def main():
         elif opt in ['-d', '--destination']:
             des = arg
         elif opt in ['-r','--rate']:
-            rate = arg
+            rate = int(arg)
 
     df = pd.read_csv(src)
     df = delete_row_missing_value_rate(df,rate)
