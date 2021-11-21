@@ -4,6 +4,15 @@ import sys
 def isNan(num):
     return num!= num
 
+
+def check_is_same(l1, l2):
+    for i in range(len(l1)):
+        if (l1[i] == l2[i] or (isNan(l1[i]) and isNan(l1[i]) == isNan(l2[i]))):
+            continue
+        else:
+            return False
+    return True
+
 def delete_row_duplicate(df):
     head = df.columns
     l_df = df.to_numpy().tolist()
@@ -21,7 +30,7 @@ def delete_row_duplicate(df):
             for c in range(col):
                 B.append(l_df[r][c])
             # B.to_numpy().tolist()
-            if A == B:
+            if check_is_same(A, B):
                 l_df.pop(r)
                 row -= 1
             else:
